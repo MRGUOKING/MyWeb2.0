@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4f57ac73-f9bf-4588-9217-951d8c2723bd" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1neVau60GxbPd6Qxox8J4IEL8IR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Music/src/pages/homeComponents" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MusicTest\Music\src\pages\homeComponents" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MusicTest\Music\src\pages\homeComponents" />
+      <recent name="D:\MusicTest\Music\src\pages\images" />
+      <recent name="D:\MusicTest\Music\src\pages\PhotoComponents" />
+      <recent name="D:\MusicTest\Music\static\fonts" />
+      <recent name="D:\MusicTest\Music\static\images" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4f57ac73-f9bf-4588-9217-951d8c2723bd" name="Default Changelist" comment="" />
+      <created>1611750610158</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611750610158</updated>
+      <workItem from="1611750611239" duration="26979000" />
+      <workItem from="1611836710906" duration="1173000" />
+      <workItem from="1611838478625" duration="587000" />
+      <workItem from="1611839376767" duration="2595000" />
+      <workItem from="1611842066278" duration="286000" />
+      <workItem from="1611893445734" duration="17000" />
+      <workItem from="1611900910046" duration="10776000" />
+      <workItem from="1611921418172" duration="11147000" />
+      <workItem from="1611975435589" duration="8818000" />
+      <workItem from="1612098985630" duration="9000000" />
+      <workItem from="1612195473689" duration="20351000" />
+      <workItem from="1612255250282" duration="929000" />
+      <workItem from="1612346191839" duration="751000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1611907380137">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1611907380137" />
+    <state x="270" y="57" key="SettingsEditor" timestamp="1612255584228">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="270" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1612255584228" />
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1612254636777">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1612254636777" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1612346338941">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1612346338941" />
+  </component>
+</project>
