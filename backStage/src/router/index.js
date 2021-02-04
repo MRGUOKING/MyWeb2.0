@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from "../pages/Login";
+import Article from "../pages/Article";
 
 Vue.use(Router)
 
@@ -12,7 +13,17 @@ export default new Router({
     },
     {
       path:'/login',
-      component: Login
+      component: Login,
+      meta:{
+        showHead:false
+      }
+    },
+    {
+      path: '/article',
+      component: Article,
+      meta: {
+        showHead: true
+      }
     }
   ]
 })

@@ -6,16 +6,20 @@
     <article class="login-container">
 <!--      登录文字-->
       <section class="login-title">
-        登录
+        后台管理
       </section>
 
       <section class="login-item">
-        <p></p>
-        <input type="text" onfocus="this.placeholder=''" onblur="this.placeholder='用户名'">
+        <p class="text">用户名</p>
+        <input type="text">
       </section>
       <section class="login-item">
-        <p></p>
-        <input type="password" onfocus="this.placeholder=''" onblur="this.placeholder='密码'">
+        <p class="text">密码</p>
+        <input type="password">
+      </section>
+<!--      登录按钮-->
+      <section>
+        <button class="login-submit" @click="login">登录</button>
       </section>
     </article>
   </div>
@@ -24,6 +28,11 @@
 <script>
 export default {
   name: "Login",
+  methods:{
+    login(){
+      this.$router.replace('/article')
+    }
+  },
   mounted() {
     document.querySelector("body").className += 'background'
   }
@@ -41,7 +50,7 @@ export default {
   z-index: -1;
 }
 .login-container{
-  width: 20%;
+  width: 25%;
   height: 60%;
   z-index: 100;
   position: fixed;
@@ -65,8 +74,18 @@ export default {
   /*background-color: pink;*/
   margin: 20px 0;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   border-bottom: 1.5px solid rgb(200,200,200);
+}
+
+.login-item .text{
+  width: 20%;
+  /*background-color: pink;*/
+  font-size: 18px;
+  color: rgb(180,180,180);
+  text-align: right;
+  line-height: 40px;
+  margin-right: 10px;
 }
 
 .login-container section input{
@@ -79,15 +98,15 @@ export default {
   color: white;
 
 }
-.login-container section input::-webkit-input-placeholder {
-  color: rgb(180,180,180);
-  font-size: 20px;
-  font-weight: 5;
-  margin-top: 3px;
-  position: relative;
-  top: 5px;
-  left: 5px;
-}
+/*.login-container section input::-webkit-input-placeholder {*/
+/*  color: rgb(180,180,180);*/
+/*  font-size: 20px;*/
+/*  font-weight: 5;*/
+/*  margin-top: 3px;*/
+/*  position: relative;*/
+/*  top: 5px;*/
+/*  left: 5px;*/
+/*}*/
 
 .login-container .login-title{
   border: none;
@@ -96,5 +115,24 @@ export default {
   font-size: 50px;
   color: white;
   text-align: center;
+}
+
+.login-submit{
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-size: 25px;
+  font-weight: 1000;
+  color: white;
+  background:linear-gradient(to bottom right, #a3bcb1,#37b9e9);/*设置按钮为渐变颜色*/
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.login-submit:hover{
+  background:linear-gradient(to bottom right,#37b9e9, #a3bcb1);
+  color: purple;
 }
 </style>

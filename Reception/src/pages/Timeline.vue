@@ -111,7 +111,6 @@ name: "timeline",
 
     function callbackFunc() {
       for (let i = 0; i < items.length; i++) {
-        console.log("我进入了")
         if (isElementInViewport(items[i])) {
           if(!items[i].classList.contains("in-view")){
             items[i].classList.add("in-view");
