@@ -6,11 +6,11 @@
     </div>
     <!--    中间内容-->
     <div class="head-nav">
-      <router-link to="/home" class="item" active-class="active"><i class="iconfont">&#xe60c</i>文章管理</router-link>
-      <router-link to="/type" class="item" active-class="active"><i class="iconfont">&#xe50b</i> 分类管理</router-link>
+      <router-link to="/article" class="item" active-class="active"><i class="iconfont">&#xe60c</i>文章管理</router-link>
+      <router-link to="/typeManage" class="item" active-class="active"><i class="iconfont">&#xe50b</i> 分类管理</router-link>
 <!--      <router-link to="/timeline" class="item" active-class="active"><i class="iconfont">&#xe631</i> 时间轴</router-link>-->
       <!--      <router-link to="/type" class="item" active-class="active"><i class="iconfont">&#xe746</i> 留言板</router-link>-->
-      <router-link to="/photo/type" class="item" active-class="active"><i class="iconfont">&#xe6ac<span id="xe6ac"></span></i>相册管理 </router-link>
+      <router-link to="/photoManage" class="item" active-class="active"><i class="iconfont">&#xe6ac<span id="xe6ac"></span></i>相册管理 </router-link>
     </div>
     <!--    搜索框-->
     <div class="search">
