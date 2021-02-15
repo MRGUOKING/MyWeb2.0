@@ -123,20 +123,22 @@ export default {
 <style scoped>
 .photoAdd-container{
   width: 80%;
-  margin: 150px auto;
+  margin: 200px auto;
   background-color: #f3f4f5;
+  border-radius: 5px;
 }
 
 .type-picture-container{
   /*overflow: visible;*/
-  margin: 20px auto;
+  box-sizing: border-box;
+  margin: 0 auto;
   border-radius: 5px;
   width: 100%;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /*background-color: #fff;*/
+  background-color: #f5f6f7;
 }
 
 .article-type{
@@ -324,8 +326,9 @@ export default {
 }
 
 .type-item-container{
+  opacity: 0.8;
   box-sizing: border-box;
-  width: 210px;
+  width: 200px;
   /*height: 100px;*/
   /*background-color: pink;*/
   position: absolute;

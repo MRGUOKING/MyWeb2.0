@@ -3,7 +3,7 @@
   <div class="publish-container">
 <!--    标题部分-->
   <section class="title-container">
-    <input type="text" placeholder="标题">
+    <input type="text" placeholder="标题" v-model="title">
   </section>
 <!--    正文部分-->
   <section class="content-container">
@@ -12,6 +12,7 @@
       @imgAdd="addImg"
       @imgDel="delImg"
       ref="md"
+      v-model = "description"
     />
   </section>
 <!--    -->
@@ -19,14 +20,12 @@
 
     <div class="type-container">
 
-      <input v-model="inputValue" type="text" class="article-input article-type" readonly placeholder="分类">
+      <input v-model="typeName" type="text" class="article-input article-type" readonly placeholder="分类">
       <p class="iconfont select">&#xe626</p>
       <!--        分类标签-->
       <div class="type-item-container">
         <ul>
-          <li>生活</li>
-          <li>学习</li>
-          <li>3</li>
+          <li v-for="(item,i) in types" :data-id='item.id' @click="clickType($event)">{{item.name}}</li>
         </ul>
       </div>
     </div>
@@ -35,28 +34,34 @@
       <div class="file-container">
         <button class="file-button">选择首图</button>
         <input type="file" id="picture" ref="inputer" class="choose-file" accept="image/*"
-               @change="addImg($event)"
+               @change="addFirstPicture($event)"
         >
       </div>
 
     </div>
     <div class="is-private">
       <div class="choose-private">
-        <input type="radio" name="private" value="0" id="public" checked><label for="public">公开</label>
+        <input type="radio" name="private" value="0" id="public" v-model="pprivate"><label for="public">公开</label>
       </div>
       <div class="choose-private">
-        <input type="radio" name="private" value="1" id="private"><label for="private">私密</label>
+        <input type="radio" name="private" value="1" id="private" v-model="pprivate"><label for="private">私密</label>
       </div>
     </div>
     <div class="picture-preview" v-show="showImg">
-      <img :src="avatar" alt="">
+      <img :src="picture_src" alt="">
     </div>
+    <div class="warning"><p>{{warning}}</p></div>
     <div class="publish-buttons">
       <button>保存</button>
-      <button>发布</button>
+      <button @click="publish">发布</button>
     </div>
 
   </section>
+<!--    提示栏-->
+    <section class="tips-container" v-show="tip">
+      <div class="success" v-if="success"><p>添加成功!</p></div>
+      <div class="failed" v-if="!success"><p>添加失败!</p></div>
+    </section>
 
 <!--&lt;!&ndash;预览的图片&ndash;&gt;-->
 <!--  <section>-->
@@ -107,21 +112,38 @@ name: "ArticlePublish",
       formData:new FormData(),
       imgs: {},
       imgLen:0,
-      avatar: require('./images/bgc.jpg'),
-      showImg:false
+      typeName: '',       //分类的名称
+//+++++++++++++++++++++++++文章参数
+      picture_src: '',        //首图地址
+      showImg:false,
+      title:'',         //标题
+      typeId:'',          //分类
+      pprivate: 0,      //是否是私密
+      description:'',   //正文部分
+//+++++++++++++++++++++++++++++++
+      warning:'',        //提示部分
+      tip: false,         //是否展示提示部分
+      success:false,      //是否上传成功
+      types:[             //种类
+        {
+          id:1,
+          name:"生活"
+        },{
+          id:2,
+          name:"技术"
+        },{
+          id:3,
+          name:"测试"
+        }
+      ]
     }
+  },
+  computed:{
   },
   mounted() {
     let type = document.querySelector(".type-item-container");
     let  input = document.querySelector(".article-type");
     let items = document.querySelectorAll(".type-item-container ul li");
-    for (let i = 0; i < items.length; i++) {
-      items[i].onclick = ()=>{
-        input.value = items[i].textContent;
-        this.inputValue = items[i].textContent;
-        items[i].parentElement.parentElement.style.display = "none";
-      }
-    }
     input.onmouseover = ()=>{
       input.nextElementSibling.nextElementSibling.style.display = "block"
     }
@@ -138,19 +160,95 @@ name: "ArticlePublish",
     }
   },
   methods:{
-    addImg(e){
-      console.log("进入addImg方法")
+    //删除图片
+    delImg(){},
+    clickType(e){
+      //输入框
+      this.typeName = e.currentTarget.textContent;
+      this.type = e.currentTarget.getAttribute('data-id');
+    },
+    //文本区域添加图片
+    addImg(pos,$file){
+      console.log("前端进入添加图片方法")
+      let formData = new FormData();
+      formData.append("image",$file);
+      this.$axios({
+        url: "http://localhost:8083/img/addImg",
+        method: 'post',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }).then((response)=>{
+        console.log(response);
+        let url = response.data;
+        console.log("url:"+url)
+        this.$refs.md.$img2Url(pos,url);
+      })
+    },
+    addFirstPicture(e){
+      //加载图片到内存
       let file = e.target.files[0];
       let reader = new FileReader();
       let that = this;
       reader.readAsDataURL(file);
-      //read.onload是一个FileReader的一个回调函数，当读取成功是执行。
-      console.log("即将进入onload方法")
-      reader.onload = function (e){
-        that.avatar = this.result;
-        that.showImg = true;
+      // //read.onload是一个FileReader的一个回调函数，当读取成功是执行。
+      // reader.onload = function (e){
+      //   that.picture_src_pre = this.result;
+      //   that.showImg = true;
+      // }
+      //后台发送数据给前台展示
+      console.log("发送首图")
+      let formData = new FormData();
+      formData.append("image",file);
+      this.$axios({
+        url: "http://localhost:8083/img/addImg",
+        method: 'post',
+        data: formData,
+        headers: {'Content-Type':'multipart/form-data'},
+      }).then((response)=>{
+        console.log(response);
+        let url = response.data;
+        this.picture_src = url;
+        this.showImg = true;
+      })
+    },
+    checkTrue(){
+      if (this.title == ''){
+        this.warning = "请输入标题"
+        return false;
+      }else if (this.description == ''){
+        this.warning = "请填写文章内容"
+        return false;
+      }else if (this.typeName == ''){
+        this.warning = "请选择分类"
+        return false;
+      }else if (this.picture_src == ''){
+        this.warning = "请选择首图"
+        return false;
       }
+      return true;
+    },
+    //添加文章的方法
+    publish(){
+      if (this.checkTrue()){
+        //that指向vue实例
+        let that =this;
+        this.$axios.post("http://localhost:8083/blog/addBlog",{
+          description:this.description,
+          type_id: this.typeId,
+          title: this.title,
+          picture_src:this.picture_src,
+          pprivate:this.pprivate
+        }).then(function (response){
+          that.tip = true;
+          that.success = true;
+        }).catch(function (error){
+          that.tip = true;
+          that.success = false;
+        })
+      }
+
     }
+
   }
 }
 </script>
@@ -248,6 +346,7 @@ name: "ArticlePublish",
   height: 50px;
   display: flex;
   justify-content: space-between;
+  /*align-items: center;*/
   /*background-color: #fff;*/
 }
 
@@ -360,7 +459,16 @@ name: "ArticlePublish",
   display: flex;
   position: center;
   align-items: center;
+}
+.warning{
+  /*background-color: pink;*/
+  width: 8%;
+  color: red;
   margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
 }
 
 .publish-buttons button:nth-child(1){
@@ -402,5 +510,33 @@ name: "ArticlePublish",
 .picture-preview img{
   width: 100%;
   height: 100%;
+}
+
+.tips-container{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.tips-container .success{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  color: greenyellow;
+  width: 15%;
+  height: 100%;
+  margin-right: 100px;
+}
+
+.tips-container .failed{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  color: #db2828;
+  width: 15%;
+  height: 100%;
+  background-color: white;
+  margin-right: 100px;
 }
 </style>

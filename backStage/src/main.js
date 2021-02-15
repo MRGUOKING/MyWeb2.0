@@ -4,11 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import mavonEditor from 'mavon-editor'
+import axios from "axios";
 import 'mavon-editor/dist/css/index.css'
 import '../static/fonts/iconfont.css'
 
 Vue.config.productionTip = false
 Vue.use(mavonEditor)
+Vue.prototype.$axios = axios
 
 /* eslint-disable no-new */
 new Vue({
