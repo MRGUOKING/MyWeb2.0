@@ -13,6 +13,8 @@
     "axios": "^0.21.1",
     "mavon-editor": "^2.9.1",
     "vue": "^2.5.2",
+    "vue-layer": "^1.2.1",
+    "vue-m-layer": "0.0.3",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

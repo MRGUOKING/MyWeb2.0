@@ -2,7 +2,7 @@
 <div>
   <div class="type-container">
 <!--    确定是文章还是照片分类-->
-    <TypeTop/>
+    <TypeTop @changeType="changeType"></TypeTop>
     <section>
       <table>
         <thead>
@@ -13,30 +13,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="item-tr">
-          <th>1</th>
-          <th>生活</th>
+        <tr class="item-tr" v-for="(item,i) in blog ? blogTypes : photoTypes">
+          <th>{{i+1}}</th>
+          <th>{{item.name}}</th>
           <th>
-            <button>删除</button>
-            <button>编辑</button>
-          </th>
-
-        </tr>
-        <tr class="item-tr">
-          <th>1</th>
-          <th>生活</th>
-          <th>
-            <button>删除</button>
-            <button>编辑</button>
-          </th>
-
-        </tr>
-        <tr class="item-tr">
-          <th>1</th>
-          <th>生活</th>
-          <th>
-            <button>删除</button>
-            <button>编辑</button>
+            <button @click="deleteType(item.id)">删除</button>
+            <button @click="edit(item)">编辑</button>
           </th>
 
         </tr>
@@ -45,11 +27,6 @@
     </section>
 <!--    新增列表-->
     <section class="article-list-bottom">
-      <article class="article-all">
-        <button class="back">上一页</button>
-        <p>第 <b>1</b> 页，共 <b>2</b> 页，有 <b>11</b> 篇文章</p>
-        <button class="back">下一页</button>
-      </article>
       <article>
         <button @click="toTypeInput()">新增</button>
       </article>
@@ -61,8 +38,51 @@
 <script>
 import TypeTop from "./TypeManageComponent/TypeTop";
 export default {
-name: "TypeManage",
+  data(){
+    return{
+      blog:true,
+      blogTypes:[],
+      photoTypes:[],
+    }
+  },
+  created() {
+    this.getListPhotoType();
+    this.getListBlogType();
+  },
+  name: "TypeManage",
   methods:{
+    edit(type){
+      this.$router.push({
+        path:'/typeInput',
+        query:{
+          type:type,
+        }
+      })
+    },
+    deleteType(typeId){
+      //如果是文章
+        if (confirm("确定要删除此分类嘛?")){
+          this.$axios.get("http://localhost:8083/type/deleteType/"+typeId).then((response)=>{
+            console.log(response);
+            alert("删除成功!");
+            this.blog ? this.getListBlogType(): this.getListPhotoType();
+          })
+        }
+    },
+    getListPhotoType(){
+      this.$axios.get("http://localhost:8083/type/listPhotoType").then((response)=>{
+        this.photoTypes = response.data;
+      })
+    },
+    getListBlogType(){
+      this.$axios.get("http://localhost:8083/type/listType").then((response)=>{
+
+        this.blogTypes = response.data;
+      })
+    },
+    changeType(isBlog){
+      this.blog = isBlog
+    },
   toTypeInput(){
     this.$router.push("/typeInput");
   }
@@ -134,6 +154,10 @@ thead{
   /*border-radius: 5px;*/
 }
 
+.item-tr th:nth-child(2){
+  margin-left: 38px;
+}
+
 .item-tr button:nth-child(1){
   width: 60px;
   height: 30px;
@@ -194,6 +218,7 @@ thead{
   align-items: center;
   font-size: 15px;
   font-weight: 300;
+
 }
 .article-list-bottom .back{
   background-color: #f9fafb;

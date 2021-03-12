@@ -8,54 +8,37 @@
         <tr class="list-tr">
           <th>ID</th>
           <th>图片名称</th>
-          <th>时间地点</th>
+          <th>时间</th>
+          <th>地点</th>
+          <th>分类</th>
           <th>缩略图</th>
           <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="item-tr">
-          <th>1</th>
-          <th>图片1</th>
-          <th>2021-2-6 17：41</th>
-          <th class="img-th"><img src="./images/bgc.jpg" alt=""></th>
+        <tr class="item-tr" v-for="(item,i) in photos">
+          <th>{{currentPage*10+i+1}}</th>
+          <th>{{item.name}}</th>
+          <th>{{item.picture_date}}</th>
+          <th>{{item.address}}</th>
+          <th>{{item.type}}</th>
+          <th class="img-th"><img :src="item.url" alt=""></th>
           <th>
-            <button>删除</button>
-            <button>编辑</button>
+            <button @click="deleteAPhoto(item.photo_id)">删除</button>
+            <button @click="editPhoto(item)">编辑</button>
           </th>
 
         </tr>
-        <tr class="item-tr">
-          <th>1</th>
-          <th>图片1</th>
-          <th>2021-2-6 17：41</th>
-          <th class="img-th"><img src="./images/bgc3.jpg" alt=""></th>
-          <th>
-            <button>删除</button>
-            <button>编辑</button>
-          </th>
 
-        </tr>
-        <tr class="item-tr">
-          <th>1</th>
-          <th>图片1</th>
-          <th>2021-2-6 17：41</th>
-          <th class="img-th"><img src="./images/bgc2.jpg" alt=""></th>
-          <th>
-            <button>删除</button>
-            <button>编辑</button>
-          </th>
-
-        </tr>
         </tbody>
       </table>
     </section>
     <!--    新增位置-->
     <section class="article-list-bottom">
       <article class="article-all">
-        <button class="back">上一页</button>
-        <p>第 <b>1</b> 页，共 <b>2</b> 页，有 <b>11</b> 篇文章</p>
-        <button class="back">下一页</button>
+        <button class="back" @click="prePage">上一页</button>
+        <p>第 <b>{{currentPage+1}}</b> 页，共 <b>{{maxPage}}</b> 页，有 <b>{{totalPhotos}}</b> 张图片</p>
+        <button class="back" @click="nextPage">下一页</button>
       </article>
       <article>
         <button @click="toPhotoAdd()">新增</button>
@@ -67,11 +50,84 @@
 
 <script>
 export default {
+  data(){
+    return{
+      photos:[],
+      currentPage:0,
+      maxPage:0,
+      totalPhotos:0,
+    }
+  },
 name: "PhotoManage",
   methods:{
+    deleteAPhoto(photo_id){
+      let res = confirm("确定删除这张图片吗?")
+      if (res){
+        this.$axios({
+          url:"http://localhost:8083/photo/deleteAPhoto/"+photo_id,
+          method:"get"
+        }).then((response)=>{
+          if (response.data.message == 1){
+            this.getPhotoMessage();
+            alert("删除成功!")
+          }
+        })
+      }
+    },
   toPhotoAdd(){
     this.$router.push('/photoAdd');
-  }
+  },
+    listPhotos(currentPage,size){
+      this.$axios({
+        url: "http://localhost:8083/photo/photoBypage/"+currentPage,
+        method:'get',
+        params:{
+          size:size
+        }
+      }).then((response)=>{
+        this.photos = response.data;
+      })
+    },
+    prePage(){
+      if (this.currentPage == 0){
+        alert("已经是第一页!");
+        return ;
+      } else {
+        this.currentPage--;
+        this.listPhotos(this.currentPage,10)
+      }
+    },
+    nextPage(){
+    if (this.currentPage >= this.maxPage-1){
+      alert("已经是最后一页");
+      return ;
+    } else {
+      this.currentPage++;
+      this.listPhotos(this.currentPage,10);
+    }
+    },
+    getPhotoMessage(){
+      this.listPhotos(this.currentPage,10);
+      this.$axios({
+        url: "http://localhost:8083/photo/photoNumMessage",
+        method:'get'
+      }).then((response)=>{
+        this.maxPage = response.data.maxPageNum;
+        this.totalPhotos = response.data.totalNumber;
+      })
+    },
+    editPhoto(photo){
+      this.$router.push({
+        path:'/photoAdd',
+        query:{
+          photo:photo
+        }
+
+      })
+    }
+  },
+  mounted() {
+    this.getPhotoMessage();
   }
 }
 </script>
@@ -115,9 +171,9 @@ thead{
   font-weight: 900;
   flex: 2;
 }
-.list-tr th:nth-child(1),.list-tr th:nth-child(2),.list-tr th:nth-child(3){
+.list-tr th:nth-child(1),.list-tr th:nth-child(4),.list-tr th:nth-child(5){
   flex: 1;
-  /*background-color: purple;*/
+  /*background-color: pink;*/
 }
 .item-tr{
   box-sizing: border-box;
@@ -135,7 +191,7 @@ thead{
 .item-tr th{
   flex: 2;
 }
-.item-tr th:nth-child(1),.item-tr th:nth-child(2),.item-tr th:nth-child(3){
+.item-tr th:nth-child(1),.item-tr th:nth-child(4),.item-tr th:nth-child(5){
   flex: 1;
   /*background-color: purple;*/
 }
@@ -216,5 +272,9 @@ thead{
 .item-tr .img-th{
   height: 100%;
   width: 100%;
+}
+
+.test{
+
 }
 </style>

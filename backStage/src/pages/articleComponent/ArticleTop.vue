@@ -3,7 +3,7 @@
   <article class="article-container">
     <!--    导航栏 搜索框-->
     <section class="article-top">
-      <input type="text" class="article-input" placeholder="标题">
+      <input v-model="title" type="text" class="article-input" placeholder="标题">
       <!--      搜索栏-->
       <div class="type-container">
 
@@ -12,9 +12,7 @@
         <!--        分类标签-->
         <div class="type-item-container">
           <ul>
-            <li>生活</li>
-            <li>学习</li>
-            <li>3</li>
+            <li v-for="(item,i) in types" @click="clickType(item.name)">{{item.name}}</li>
           </ul>
         </div>
       </div>
@@ -28,6 +26,13 @@
 <script>
 export default {
 name: "ArticleTop",
+  data(){
+  return{
+    title:'',
+    types:[],
+    inputValue:'',
+  }
+  },
   mounted() {
     let type = document.querySelector(".type-item-container");
     let  input = document.querySelector(".article-type");
@@ -53,17 +58,24 @@ name: "ArticleTop",
       type.previousElementSibling.previousElementSibling.classList.remove("focus");
       type.style.display ="none";
     }
+    this.getTypeList();
   },
   methods:{
+  clickType(typeName){
+    this.inputValue = typeName;
+  },
+    getTypeList(){
+      this.$axios({
+        url:"http://localhost:8083/type/listType",
+        method:'get'
+      }).then((response)=>{
+        this.types = response.data;
+      })
+    },
     clear(){
       this.inputValue = '';
     }
   },
-  data(){
-    return{
-      inputValue:''
-    }
-  }
 }
 </script>
 

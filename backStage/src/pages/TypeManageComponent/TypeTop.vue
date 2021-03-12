@@ -1,13 +1,13 @@
 <template>
 <div>
   <div class="head">
-      <div style="display: flex">
-        <div class="item-type">文章分类</div>
-        <div class="type-numbers">5</div>
+      <div class="type-container" @click="isBlog()">
+        <div :class="blog ? 'item-type active' : 'item-type' ">文章分类</div>
+        <div :class="blog ? 'type-numbers active' : 'type-numbers'">5</div>
       </div>
-      <div style="display: flex">
-        <div class="item-type">照片分类</div>
-        <div class="type-numbers">5</div>
+      <div class="type-container" @click="isPhoto()">
+        <div :class="!blog ? 'item-type active' : 'item-type' ">照片分类</div>
+        <div :class="!blog ? 'type-numbers active' : 'type-numbers'">5</div>
       </div>
   </div>
 </div>
@@ -15,11 +15,41 @@
 
 <script>
 export default {
-name: "TypeTop"
+name: "TypeTop",
+  data(){
+    return{
+      blog:true
+    }
+  },
+  methods:{
+    isBlog(){
+      if (this.blog == false){
+        this.blog = true;
+        this.$emit("changeType",true)
+      }
+
+    },
+    isPhoto(){
+      if (this.blog == true){
+        this.blog = false;
+        this.$emit("changeType",false);
+      }
+    },
+
+  }
 }
 </script>
 
 <style scoped>
+.type-container{
+  display: flex;
+  cursor: pointer;
+}
+.type-container .active{
+  border-color: #00b5ad;
+  background-color: #eeeeee;
+  /*border-right: none;*/
+}
 .head{
   display: flex;
   justify-content: center;

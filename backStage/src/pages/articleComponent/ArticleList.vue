@@ -9,48 +9,35 @@
            <th>ID</th>
            <th>标题</th>
            <th>类型</th>
-           <th>推荐</th>
+           <th></th>
            <th>状态</th>
            <th>更新时间</th>
            <th>操作</th>
          </tr>
         </thead>
         <tbody>
-        <tr class="item-tr">
-          <th>1</th>
-          <th>标题</th>
-          <th>类型</th>
-          <th>是</th>
-          <th>发布</th>
-          <th>2021-2-6 17：41</th>
+        <tr class="item-tr" v-for="(item,i) in blogs">
+          <th>{{currentPage*10+i+1}}</th>
+          <th>{{item.title}}</th>
+          <th>{{item.type_name}}</th>
+          <th></th>
+          <th>{{item.publish == 1 ? '发布' : '草稿'}}</th>
+          <th>{{ item.update_time}}</th>
           <th>
-            <button>删除</button>
-            <button>编辑</button>
+            <button @click="deleteArticle(item.id)">删除</button>
+            <button @click="editBlog(item)">编辑</button>
           </th>
 
-        </tr>
-        <tr class="item-tr">
-          <th>2</th>
-          <th>标题</th>
-          <th>类型</th>
-          <th>是</th>
-          <th>发布</th>
-          <th>2021-2-6 17：41</th>
-          <th>
-            <button>删除</button>
-            <button>编辑</button>
-          </th>
-
-        </tr>
+        </tr >
         </tbody>
       </table>
     </section>
 <!--    新增位置-->
     <section class="article-list-bottom">
         <article class="article-all">
-          <button class="back">上一页</button>
-          <p>第 <b>1</b> 页，共 <b>2</b> 页，有 <b>11</b> 篇文章</p>
-          <button class="back">下一页</button>
+          <button class="back" @click="prePage">上一页</button>
+          <p>第 <b>{{currentPage+1}}</b> 页，共 <b>{{maxPage}}</b> 页，有 <b>{{totalNumbers}}</b> 篇文章</p>
+          <button class="back" @click="nextPage">下一页</button>
         </article>
       <article>
         <button @click="toPublish()">新增</button>
@@ -63,11 +50,75 @@
 <script>
 import Article from "../Article";
 export default {
+  data(){
+    return {
+      blogs:[],
+      page:0,
+      currentPage:0,
+      maxPage:0,
+      totalNumbers:0
+    }
+  },
 name: "ArticleConten",
   components: {Article},
+  mounted() {
+    this.getBlogByPage(this.currentPage);
+    this.getPageNum();
+  },
   methods:{
+    //删除文章
+    deleteArticle(id){
+      let sure = confirm("确定要删除这篇文章吗？")
+      if (sure){
+        this.$axios.get("http://localhost:8083/blog/deleteABlog/"+id,{}).then((response)=>{
+          if (response.data.message == 1){
+            alert("删除成功!");
+            this.getPageNum();
+            this.getBlogByPage(this.currentPage);
+          }
+        })
+      }
+    },
+    getBlogByPage(page){
+      this.$axios.get("http://localhost:8083/blog/blogByPage/"+page,{}).then((response)=>{
+        this.blogs = response.data;
+      })
+    },
+    prePage(){
+      if (this.currentPage == 0){
+        alert("已经是第一页");
+        return;
+      }else {
+        this.currentPage--;
+        this.getBlogByPage(this.currentPage);
+      }
+    },
+    nextPage(){
+      if (this.currentPage+1>=this.maxPage){
+        alert("已经是最后一页")
+        return ;
+      }else {
+        this.currentPage++;
+        this.getBlogByPage(this.currentPage);
+      }
+    },
+    getPageNum(){
+      this.$axios.get("http://localhost:8083/blog//blogPageMessage",{}).then((response)=>{
+        this.maxPage = response.data.maxPageNum;
+        this.totalNumbers = response.data.totalNumber;
+      })
+    },
    toPublish(){
      this.$router.push('/publish')
+   },
+   editBlog(blog){
+      this.$router.push({
+        path: '/publish',
+        query:{
+          blog:blog,
+          update:1
+        }
+      })
    }
   }
 }

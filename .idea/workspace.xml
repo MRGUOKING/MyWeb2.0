@@ -19,13 +19,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f57ac73-f9bf-4588-9217-951d8c2723bd" name="Default Changelist" comment="相册管理完成">
+    <list default="true" id="4f57ac73-f9bf-4588-9217-951d8c2723bd" name="Default Changelist" comment="发布文章前后端联调成功">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backStage/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backStage/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backStage/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backStage/src/pages/ArticlePublish.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/ArticlePublish.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backStage/src/pages/PhotoAdd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/PhotoAdd.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/PhotoManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/PhotoManage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/TypeInput.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/TypeInput.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/TypeManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/TypeManage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/TypeManageComponent/TypeTop.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/TypeManageComponent/TypeTop.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/articleComponent/ArticleList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/articleComponent/ArticleList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/articleComponent/ArticleTop.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/articleComponent/ArticleTop.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +119,14 @@
       <workItem from="1612941827466" duration="4349000" />
       <workItem from="1613209678015" duration="2325000" />
       <workItem from="1613213393496" duration="12771000" />
-      <workItem from="1613279102421" duration="12266000" />
+      <workItem from="1613279102421" duration="19121000" />
+      <workItem from="1615201461617" duration="493000" />
+      <workItem from="1615214523626" duration="3902000" />
+      <workItem from="1615277017354" duration="22346000" />
+      <workItem from="1615347486089" duration="26404000" />
+      <workItem from="1615443424342" duration="10357000" />
+      <workItem from="1615474193713" duration="1936000" />
+      <workItem from="1615531415418" duration="3576000" />
     </task>
     <task id="LOCAL-00001" summary="增加后台分类的搜索和导航">
       <created>1612449205111</created>
@@ -129,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612870126425</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="发布文章前后端联调成功">
+      <created>1613392900219</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1613392900219</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +170,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="增加后台分类的搜索和导航" />
     <MESSAGE value="相册管理完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="相册管理完成" />
+    <MESSAGE value="发布文章前后端联调成功" />
+    <option name="LAST_COMMIT_MESSAGE" value="发布文章前后端联调成功" />
   </component>
   <component name="WindowStateProjectService">
     <state x="594" y="128" key="#com.intellij.ide.ui.customization.CustomizableActionsPanel.FindAvailableActionsDialog" timestamp="1612361528516">
@@ -173,18 +194,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1612362292434" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1612870135704">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1613393088184">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1612870135704" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1613393088184" />
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1612254636777">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1612254636777" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1612346338941">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1615378810128">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1612346338941" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1615378810128" />
     <state x="552" y="96" width="441" height="632" key="svn.repositoryBrowser" timestamp="1612362658189">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

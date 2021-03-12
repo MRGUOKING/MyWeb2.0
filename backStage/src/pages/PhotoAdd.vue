@@ -5,41 +5,46 @@
     <section class="type-picture-container">
       <div class="type-container">
 
-        <input v-model="inputValue" type="text" class="article-input article-type" readonly placeholder="分类">
+        <input v-model="inputValue" ref="typeInput" type="text" class="article-input article-type" readonly placeholder="分类">
         <p class="iconfont select">&#xe626</p>
         <!--        分类标签-->
         <div class="type-item-container">
           <ul>
-            <li>生活</li>
-            <li>学习</li>
-            <li>3</li>
+            <li v-for="(item,i) in typeContent" @click="changeType(item.name)">{{item.name}}</li>
           </ul>
         </div>
       </div>
-      <div class="first-picture">
+      <div class="first-picture" v-show="!is_edit">
         <label for="picture">图片</label>
         <div class="file-container">
           <button class="file-button">添加图片</button>
-          <input type="file" multiple="multiple" id="picture" ref="inputer" class="choose-file" accept="image/*"
+          <input type="file" v-show="!is_edit" multiple="multiple" id="picture" ref="inputer" class="choose-file" accept="image/*"
                  @change="addImg($event)"
           >
         </div>
 
       </div>
+      <div class="place">
+        <div class="place-label">地点</div>
+        <div class="place-input"><input type="text" v-model="address" placeholder="请输入地点"></div>
+      </div>
+      <div class="time">
+        <input type="date" v-model="pictureDate" ref="date_info"  @click="inputChange()"  class="date-input">
+      </div>
       <div class="is-private">
         <div class="choose-private">
-          <input type="radio" name="private" value="0" id="public" checked><label for="public">公开</label>
+          <input type="radio" name="private" value="0"  v-model="isPrivate" id="public" checked><label for="public">公开</label>
         </div>
         <div class="choose-private">
-          <input type="radio" name="private" value="1" id="private"><label for="private">私密</label>
+          <input type="radio" name="private"  value="1" v-model="isPrivate" id="private"><label for="private">私密</label>
         </div>
       </div>
       <div class="publish-buttons">
 <!--        <button>保存</button>-->
-        <button>上传</button>
+        <button @click=" is_edit ==true ? updateImg() : addImgToBack() " v-text="is_edit ? '修改':'上传' ">上传</button>
       </div>
     </section>
-<!--    展示图片的部分-->
+<!--  如果是新增  展示图片的部分-->
     <section class="show-pictures" v-if="imgs.length>0">
       <div class="picture-preview"  v-for="(item , i) in imgs" :key="i">
         <img :src="item.src" alt="">
@@ -51,6 +56,18 @@
         <p class="iconfont deleteIcon" @click="delImg(i)">&#xe51b</p>
       </div>
     </section>
+<!--    如果是修改-->
+    <section class="show-pictures" v-if="is_edit">
+      <div class="picture-preview">
+        <img :src="url" alt="">
+        <!--        <img src="./images/bgc.jpg" alt="">-->
+        <div class="description">
+          <label>名称</label>
+          <input type="text" v-model="name">
+        </div>
+      </div>
+    </section>
+
   </div>
 
 </div>
@@ -63,21 +80,39 @@ export default {
       avatar: require('./images/bgc.jpg'),
       imgs:[],
       //返回后台的数据
-      imgsBack:[]
+      imgsBack:[],
+      //分类数据
+      inputValue:"",
+      pictureDate:"",
+      //分类数组
+      typeContent:[],
+      //是否私密
+      isPrivate:0,
+      address:"",
+      //判断是否时photo_id
+      photo_id:-1,
+      is_edit: false,
+      url:'',
+      name:''
+
     }
+  },
+  created() {
+    this.getParams()
   },
   name: "AddPhoto",
   mounted() {
+
     let type = document.querySelector(".type-item-container");
     let  input = document.querySelector(".article-type");
     let items = document.querySelectorAll(".type-item-container ul li");
-    for (let i = 0; i < items.length; i++) {
-      items[i].onclick = ()=>{
-        input.value = items[i].textContent;
-        this.inputValue = items[i].textContent;
-        items[i].parentElement.parentElement.style.display = "none";
-      }
-    }
+      // for (let i = 0; i < items.length; i++) {
+      //   items[i].onclick = ()=>{
+      //     input.value = items[i].textContent;
+      //     this.inputValue = items[i].textContent;
+      //     items[i].parentElement.parentElement.style.display = "none";
+      //   }
+      // }
     input.onmouseover = ()=>{
       input.nextElementSibling.nextElementSibling.style.display = "block"
     }
@@ -92,16 +127,104 @@ export default {
       type.previousElementSibling.previousElementSibling.classList.remove("focus");
       type.style.display ="none";
     }
+
+    this.getListType();
+    this.setDefaultDate();
   },
   methods:{
+
+    updateImg(){
+      let photo_update = {
+        photo_id:this.photo_id,
+        url: this.url,
+        name:this.name,
+        picture_date: this.pictureDate,
+        type:this.inputValue,
+        is_private: this.isPrivate,
+        address:this.address
+      }
+      this.$axios.post("http://localhost:8083/photo//updatePhoto",photo_update).then((response)=>{
+        alert("修改成功!");
+      })
+    },
+    getParams(){
+      let photo = this.$route.query.photo;
+      if (photo != undefined){
+        //是修改
+        this.is_edit = true;
+        this.inputValue = photo.type;
+        this.pictureDate = photo.picture_date;
+        this.isPrivate = photo.is_private;
+        this.address = photo.address;
+        this.photo_id = photo.photo_id;
+        this.url = photo.url;
+        this.name = photo.name;
+      }
+    },
+    /**
+     * 点击li修改type
+     */
+    changeType(typeName){
+      // input.value = items[i].textContent;
+      // this.inputValue = items[i].textContent;
+      // items[i].parentElement.parentElement.style.display = "none";
+      this.$refs.typeInput.value = typeName;
+      this.inputValue = typeName;
+    },
+    getListType(){
+      this.$axios({
+        url:"http://localhost:8083/type/listPhotoType",
+        method:'get'
+      }).then((response)=>{
+        this.typeContent = response.data;
+        if(!this.is_edit){
+          this.inputValue = this.typeContent[0].name;
+        }
+      })
+    },
+    addImgToBack(){
+      console.log("进入photo函数!")
+      let file = this.imgsBack;
+      if (file.length == 0){
+        alert("没有要上传的文件")
+        return ;
+      }
+      let length = file.length;
+      for(let i=0;i<length;i++){
+        let photo = {
+          name:this.imgs[i].name,
+          picture_date: this.pictureDate,
+          type:this.inputValue,
+          is_private: this.isPrivate,
+          address:this.address
+        }
+        this.addFile(file[i],photo);
+      }
+      //删除上传的本地数组文件
+      file.splice(0,length);
+      this.imgs.splice(0,this.imgs.length);
+      alert("上传成功")
+    },
+
+
+    setDefaultDate(){
+      var myDate = new Date(), Y = myDate.getFullYear(), M = myDate.getMonth() + 1, D = myDate.getDate();
+      //处理月是一位的情况
+      if((M + '').length == 1){
+        M = '0' + (M + '');
+      }
+      //处理日是一位的情况
+      if((D + '').length == 1){
+        D = '0' + (D + '')
+      }
+      var curDay = Y + '-' + M + '-' + D;
+      this.pictureDate = curDay;
+    },
     addImg(e){
-      // console.log("进入addImg方法")
-      // console.log(e.target.files)
       let file = e.target.files;
       let that = this;
       for (let i = 0; i < file.length; i++) {
-        console.log(file[i].name.substring(file[i].name.lastIndexOf("."),file[i].name.length));
-
+        this.imgsBack.push(file[i]);
         let reader = new FileReader();
         reader.onload = function (e){
           let src_content = e.target.result;
@@ -109,12 +232,35 @@ export default {
           that.imgs.push({src:src_content,name:name_content});
         }
         reader.readAsDataURL(file[i]);
+        //把图片添加到服务器上
       }
-      //read.onload是一个FileReader的一个回调函数，当读取成功是执行。
-      // console.log("即将进入onload方法")
     },
     delImg(i){
       this.imgs.splice(i,1);
+      this.imgsBack.splice(i,1);
+    },
+    //添加图片到服务器
+    addFile(file,photo){
+      let formData = new FormData();
+      formData.append("image",file);
+      this.$axios({
+        url: "http://localhost:8083/img/addImg",
+        method: 'post',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }).then((response)=>{
+        let url = response.data;
+        photo.url = url;
+        this.$axios({
+          url:"http://localhost:8083/photo/addPhoto",
+          method: 'post',
+          data:photo,
+          headers: {'Content-Type':'application/json'}
+        }).then((response)=>{
+        })
+        return url;
+        // this.$refs.md.$img2Url(pos,url);
+      })
     }
   }
 }
@@ -387,5 +533,62 @@ export default {
   right: 1px;
   cursor: pointer;
   color: #c4c7ce;
+}
+.place{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 15%;
+  height: 70%;
+  border: 1px solid #00b5ad;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+.place .place-label{
+  height: 100%;
+  width: 25%;
+  line-height: 30px;
+  /*background-color: purple;*/
+  font-size: 15px;
+  text-align: center;
+  border-right: 1px solid #00b5ad;
+  font-weight: 800;
+  color: #00b5ad;
+}
+.place .place-input{
+  width: 75%;
+  height: 100%;
+  /*background-color: pink;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.place-input input{
+  width: 100%;
+  height: 80%;
+  /*background-color: purple;*/
+  background-color: #f5f6f7;
+  outline: none;
+  text-indent: 5px;
+}
+
+.time{
+  /*background-color: purple;*/
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.date-input{
+  text-indent: 1px;
+  border-radius: 5px;
+  font-weight: 800;
+  font-size: 15px;
+  height: 80%;
+  width: 80%;
+  outline: none;
 }
 </style>

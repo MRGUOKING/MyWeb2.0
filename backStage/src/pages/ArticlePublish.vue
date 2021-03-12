@@ -20,12 +20,12 @@
 
     <div class="type-container">
 
-      <input v-model="typeName" type="text" class="article-input article-type" readonly placeholder="分类">
+      <input v-model="typeName" ref="typeInput" type="text" class="article-input article-type" readonly placeholder="分类">
       <p class="iconfont select">&#xe626</p>
       <!--        分类标签-->
       <div class="type-item-container">
         <ul>
-          <li v-for="(item,i) in types" :data-id='item.id' @click="clickType($event)">{{item.name}}</li>
+          <li v-for="(item,i) in types" @click="clickType(item.name)">{{item.name}}</li>
         </ul>
       </div>
     </div>
@@ -52,8 +52,8 @@
     </div>
     <div class="warning"><p>{{warning}}</p></div>
     <div class="publish-buttons">
-      <button>保存</button>
-      <button @click="publish">发布</button>
+      <button @click="publish(0)">保存</button>
+      <button @click="publish(1)">{{this.blog_id == -1 ? '发布':'修改'}}</button>
     </div>
 
   </section>
@@ -112,30 +112,21 @@ name: "ArticlePublish",
       formData:new FormData(),
       imgs: {},
       imgLen:0,
-      typeName: '',       //分类的名称
 //+++++++++++++++++++++++++文章参数
       picture_src: '',        //首图地址
-      showImg:false,
+      showImg:false,        //是否显示预览图
       title:'',         //标题
-      typeId:'',          //分类
+      typeName: '',       //分类的名称
       pprivate: 0,      //是否是私密
       description:'',   //正文部分
+      // published: 1,
+      blog_id: -1,      //如果是修改，修改的id
 //+++++++++++++++++++++++++++++++
       warning:'',        //提示部分
       tip: false,         //是否展示提示部分
       success:false,      //是否上传成功
-      types:[             //种类
-        {
-          id:1,
-          name:"生活"
-        },{
-          id:2,
-          name:"技术"
-        },{
-          id:3,
-          name:"测试"
-        }
-      ]
+      types:[],             //种类
+
     }
   },
   computed:{
@@ -158,18 +149,51 @@ name: "ArticlePublish",
       type.previousElementSibling.previousElementSibling.classList.remove("focus");
       type.style.display ="none";
     }
+    this.getTypeList();
+    // this.getParams();
+  },
+  created() {
+  this.getParams();
   },
   methods:{
+  getParams(){
+    let routerBlog = this.$route.query.blog;
+    if (routerBlog.id != undefined){
+      this.blog_id = routerBlog.id;
+      this.description = routerBlog.description;
+      this.typeName = routerBlog.type_name;
+      this.title = routerBlog.title;
+      this.picture_src = routerBlog.picture_src;
+      this.pprivate = routerBlog.pprivate;
+      this.published = routerBlog.publish;
+      //显示预览图
+      this.showImg = true;
+    }
+  },
+    isUpdate(){
+      return this.blog_id != -1;
+    },
+    getTypeList(){
+        this.$axios({
+          url:"http://localhost:8083/type/listType",
+          method:'get'
+        }).then((response)=>{
+          this.types = response.data;
+          //不是修改
+          if (this.blog_id == -1){
+            this.typeName = this.types[0].name;
+          }
+        })
+    },
     //删除图片
     delImg(){},
-    clickType(e){
+    clickType(typeName){
       //输入框
-      this.typeName = e.currentTarget.textContent;
-      this.type = e.currentTarget.getAttribute('data-id');
+      this.$refs.typeInput.value = typeName;
+      this.typeName = typeName;
     },
     //文本区域添加图片
     addImg(pos,$file){
-      console.log("前端进入添加图片方法")
       let formData = new FormData();
       formData.append("image",$file);
       this.$axios({
@@ -178,9 +202,7 @@ name: "ArticlePublish",
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then((response)=>{
-        console.log(response);
         let url = response.data;
-        console.log("url:"+url)
         this.$refs.md.$img2Url(pos,url);
       })
     },
@@ -188,15 +210,8 @@ name: "ArticlePublish",
       //加载图片到内存
       let file = e.target.files[0];
       let reader = new FileReader();
-      let that = this;
       reader.readAsDataURL(file);
-      // //read.onload是一个FileReader的一个回调函数，当读取成功是执行。
-      // reader.onload = function (e){
-      //   that.picture_src_pre = this.result;
-      //   that.showImg = true;
-      // }
       //后台发送数据给前台展示
-      console.log("发送首图")
       let formData = new FormData();
       formData.append("image",file);
       this.$axios({
@@ -205,7 +220,6 @@ name: "ArticlePublish",
         data: formData,
         headers: {'Content-Type':'multipart/form-data'},
       }).then((response)=>{
-        console.log(response);
         let url = response.data;
         this.picture_src = url;
         this.showImg = true;
@@ -228,25 +242,54 @@ name: "ArticlePublish",
       return true;
     },
     //添加文章的方法
-    publish(){
+    publish(published){
+    if(this.isUpdate()){
+      this.updateBlog(this.blog_id,published);
+      return ;
+    }
       if (this.checkTrue()){
         //that指向vue实例
         let that =this;
         this.$axios.post("http://localhost:8083/blog/addBlog",{
           description:this.description,
-          type_id: this.typeId,
+          type_name: this.typeName,
           title: this.title,
           picture_src:this.picture_src,
-          pprivate:this.pprivate
+          pprivate:this.pprivate,
+          publish: published
         }).then(function (response){
+          that.warning = '';
           that.tip = true;
           that.success = true;
         }).catch(function (error){
+          that.warning = '';
           that.tip = true;
           that.success = false;
         })
       }
 
+    },
+    updateBlog(blog_id,published){
+    if (this.checkTrue()){
+      //that指向vue实例
+      let that =this;
+      this.$axios.post("http://localhost:8083/blog/updateBlog/"+blog_id,{
+        description:this.description,
+        type_name: this.typeName,
+        title: this.title,
+        picture_src:this.picture_src,
+        pprivate:this.pprivate,
+        publish: published
+      }).then(function (response){
+        that.warning = '';
+        that.tip = true;
+        that.success = true;
+      }).catch(function (error){
+        that.warning = '';
+        that.tip = true;
+        that.success = false;
+      })
+    }
     }
 
   }
