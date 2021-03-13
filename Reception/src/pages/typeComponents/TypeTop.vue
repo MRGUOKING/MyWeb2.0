@@ -4,13 +4,13 @@
       <img src="../images/bgc3.jpg" alt="">
       <p>一段一段的往事便组成了人生</p>
       <!--    分类标签-->
-      <div class="head">
-        <router-link to="/photoType">
-          <div style="display: flex">
-            <div class="item-type">2021</div>
-            <div class="type-numbers">5</div>
+      <div class="head" >
+        <div to="/photoType"  v-for="(item,i) in blogTypes" @click="changeType(i,item.type_name)">
+          <div class="type-container">
+            <div :class="currentIndex == i ? 'item-type active' : 'item-type' ">{{item.type_name}}</div>
+            <div :class="currentIndex == i ? 'type-numbers active' : 'type-numbers'">{{item.num}}</div>
           </div>
-        </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -19,11 +19,51 @@
 
 <script>
 export default {
-  name: "PhotoThop"
+  name: "PhotoThop",
+  data(){
+    return{
+      blogTypes:[],
+      currentIndex:0,
+    }
+  },
+  created() {
+    this.initListBlogType();
+  },
+  methods:{
+    changeType(typeIndex,typeName){
+      this.currentIndex = typeIndex;
+      this.currentIndex = typeIndex;
+      this.$emit("changeType",typeName);
+    },
+    getListBlogType(){
+      this.$axios.get("http://localhost:8083/blog/blogTypeNum").then((response)=>{
+        this.blogTypes = response.data;
+      })
+    },
+    //初始化，当初始化成功时向父组件传递第一个要显示的分类
+    initListBlogType(){
+      this.$axios.get("http://localhost:8083/blog/blogTypeNum").then((response)=>{
+        this.blogTypes = response.data;
+        this.$emit("changeType",response.data[0].type_name);
+      })
+    }
+
+  }
 }
 </script>
 
 <style scoped>
+
+.type-container{
+  display: flex;
+  cursor: pointer;
+}
+
+.type-container .active{
+  border-color: #00b5ad;
+  background-color: #eeeeee;
+  /*border-right: none;*/
+}
 .top{
   width: 100%;
   height: 300px;
@@ -72,6 +112,6 @@ export default {
   border: 1px solid #ccccce;
   border-left: none;
   text-align: center;
-  line-height: 30px;
+  line-height: 35px;
 }
 </style>

@@ -1,10 +1,18 @@
 <template>
-<div>
+<div style="padding-bottom: 100px">
     <HomeTop/>
 <!--  推荐内容-->
     <HomeContent/>
 <!--  主要内容-->
-    <Main/>
+  <Main v-bind:blogs="blogs"></Main>
+  <section class="article-list-bottom">
+    <article class="article-all">
+      <button class="back" @click="prePage">上一页</button>
+      <p>第 <b>{{currentPage+1}}</b> 页，共 <b>{{maxPage}}</b> 页，有 <b>{{totalNumbers}}</b> 篇文章</p>
+      <button class="back" @click="nextPage">下一页</button>
+    </article>
+  </section>
+
 
 </div>
 </template>
@@ -15,10 +23,23 @@ import Main from "./homeComponents/Main";
 import HomeTop from "./homeComponents/HomeTop";
 export default {
   name: "Home",
+  data(){
+    return{
+      currentPage:0,
+      maxPage:0,
+      totalNumbers:0,
+      blogs:[]
+    }
+  },
   components:{
     HomeTop,
     HomeContent,
     Main
+  },
+  created() {
+    this.getPageNum();
+    //初始化
+    this.getBlogByPage(0);
   },
   mounted() {
     function slideshow() {
@@ -53,6 +74,40 @@ export default {
 
     }
     slideshow();
+  },
+  methods:{
+    getPageNum(){
+      this.$axios.get("http://localhost:8083/blog//blogPageMessage").then((response)=>{
+        console.log("请求页面成功")
+        console.log(response);
+        this.maxPage = response.data.maxPageNum;
+        this.totalNumbers = response.data.totalNumber;
+      })
+    },
+    prePage(){
+      if (this.currentPage == 0){
+        alert("已经是第一页");
+        return;
+      }else {
+        this.currentPage--;
+        this.getBlogByPage(this.currentPage);
+      }
+    },
+    nextPage(){
+      if (this.currentPage+1>=this.maxPage){
+        alert("已经是最后一页")
+        return ;
+      }else {
+        this.currentPage++;
+        this.getBlogByPage(this.currentPage);
+      }
+    },
+    getBlogByPage(page){
+      this.$axios.get("http://localhost:8083/blog/blogByPage/"+page).then((response)=>{
+        console.log("请求成功")
+        this.blogs = response.data;
+      })
+    },
   }
 }
 </script>
@@ -128,6 +183,52 @@ body{
 #slideshow .avatar .nickname h2{
   font-size: 40px;
   color: white;
+}
+
+.article-list-bottom{
+  width: 70%;
+  margin: 0 auto;
+  /*margin-bottom: 1000px;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f9fafb;
+}
+
+.article-list-bottom article{
+  padding: 10px 0 10px 0;
+}
+
+.article-list-bottom article button{
+  width: 100px;
+  height: 35px;
+  background-color: #00b5ad;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.article-list-bottom article button:hover{
+  background-color: #009c95;
+}
+.article-all{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 300;
+}
+.article-list-bottom .back{
+  background-color: #f9fafb;
+  color: #4183c4;
+}
+
+.article-list-bottom .back:hover{
+  background-color: #f9fafb;
 }
 
 

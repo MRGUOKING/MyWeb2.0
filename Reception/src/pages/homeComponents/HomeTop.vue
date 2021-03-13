@@ -11,7 +11,7 @@
       <span>3</span>
     </div>
     <!--    头像-->
-    <div class="avatar">
+    <div class="avatar">l
       <img src="../images/header.jpg" alt="">
       <div class="nickname">
         <h2>名字</h2>

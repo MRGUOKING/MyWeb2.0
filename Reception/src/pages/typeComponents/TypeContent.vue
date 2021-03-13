@@ -2,19 +2,19 @@
   <div>
     <div class="content">
 
-      <div class="item">
+      <div class="item" v-for="(item,i) in listBlogs">
         <!--      左边-->
         <div class="left">
-          <div class="title">立冬</div>
-          <div class="description">今天是立冬...</div>
+          <div class="title">{{item.title}}</div>
+          <div class="description">{{ item.title }}...</div>
           <div>
             <div class="message">
-              <img class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3593883707,2674855000&fm=26&gp=0.jpg" alt="">
+              <img class="avatar" :src="item.picture_src" alt="">
               <p>king</p>
               <p class="iconfont">&#xe606</p>
-              <p>2021-1-29</p>
+              <p>{{item.update_time}}</p>
               <p class="iconfont icon">&#xe667</p>
-              <p>10</p>
+              <p>{{item.update_view_numbers}}</p>
               <p class="iconfont icon">&#xe64d</p>
               <p>0</p>
             </div>
@@ -26,18 +26,7 @@
         </div>
         <!--        右边-->
         <div class="right">
-          <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3593883707,2674855000&fm=26&gp=0.jpg" alt="">
-        </div>
-      </div>
-      <div class="item">
-        <div class="left">
-          <div class="title"></div>
-          <div class="description"></div>
-          <div class="message"></div>
-        </div>
-        <!--        右边-->
-        <div class="right">
-          <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3593883707,2674855000&fm=26&gp=0.jpg" alt="">
+          <img :src="item.picture_src" alt="">
         </div>
       </div>
     </div>
@@ -46,7 +35,10 @@
 
 <script>
 export default {
-  name: "Main"
+  name: "Main",
+  props:['listBlogs'],
+  methods:{
+  }
 }
 </script>
 
@@ -67,8 +59,9 @@ export default {
   padding: 30px 20px;
   background-color: rgba(255,255,255,0.7);
   /*border-radius: 8px;*/
-  margin: 0px 0;
+  margin: 10px 0;
   border-bottom: 1px solid #5b5c5d;
+  cursor: pointer;
 }
 .content .item .left{
   flex: 3;

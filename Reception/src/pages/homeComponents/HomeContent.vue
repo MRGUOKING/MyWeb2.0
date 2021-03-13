@@ -6,7 +6,7 @@
   </div>
 <!--  最新推荐图片-->
   <div class="content">
-    <div class="content-img">
+    <div class="content-img" >
       <router-link to="/article">
       <img src="https://6169-ai-ship-3gnlla8l509c5d77-1303253921.tcb.qcloud.la/%E7%94%9F%E6%B4%BB/%E8%8A%B1%E6%9C%B5.jpg?sign=f2608f03d0d5156b2265338259b5ebcf&t=1609675484" alt="">
       </router-link>
@@ -38,7 +38,17 @@
 
 <script>
 export default {
-  name: "HomeContent"
+  name: "HomeContent",
+  data(){
+    return{
+      list_article:[],
+      list_comment:[],
+      currentPage:0
+    }
+  },
+  props:["blogs"],
+  methods:{
+  }
 }
 </script>
 
@@ -80,5 +90,7 @@ export default {
 
 .main-content{
 }
+
+
 </style>
 

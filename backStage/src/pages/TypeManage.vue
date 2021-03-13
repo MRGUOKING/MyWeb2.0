@@ -76,7 +76,6 @@ export default {
     },
     getListBlogType(){
       this.$axios.get("http://localhost:8083/type/listType").then((response)=>{
-
         this.blogTypes = response.data;
       })
     },

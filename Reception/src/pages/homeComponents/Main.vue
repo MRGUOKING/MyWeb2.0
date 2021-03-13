@@ -1,70 +1,46 @@
 <template>
   <div>
     <div class="content">
-
-      <div class="item">
+      <div class="item" v-for="(item,i) in blogs" @click="toBlog(item.id)">
         <!--      左边-->
         <div class="left">
-          <router-link to="/article"><div class="article-title">立冬</div></router-link>
-          <div class="description">今天是立冬...</div>
+          <div class="article-title">{{item.title}}</div>
+          <div class="description">{{item.title}}...</div>
           <div>
             <div class="message">
-              <img class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3593883707,2674855000&fm=26&gp=0.jpg" alt="">
+              <img class="avatar" :src="item.picture_src" alt="">
               <p>king</p>
               <p class="iconfont">&#xe606</p>
-              <p>2021-1-29</p>
+              <p>{{item.update_time}}</p>
               <p class="iconfont icon">&#xe667</p>
-              <p>10</p>
+              <p>{{item.view_numbers}}</p>
               <p class="iconfont icon">&#xe64d</p>
               <p>0</p>
             </div>
 <!--            底部种类-->
             <div class="message">
-              <a href="#"><div class="type">生活</div></a>
+              <a href="#"><div class="type">{{item.type_name}}</div></a>
             </div>
           </div>
         </div>
 <!--        右边-->
         <div class="right">
-          <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3593883707,2674855000&fm=26&gp=0.jpg" alt="">
+          <img :src="item.picture_src" alt="">
         </div>
       </div>
-      <div class="item">
-        <!--      左边-->
-        <div class="left">
-          <router-link to="/article"><div class="article-title">立冬</div></router-link>
-          <div class="description">今天是立冬...</div>
-          <div>
-            <div class="message">
-              <img class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3593883707,2674855000&fm=26&gp=0.jpg" alt="">
-              <p>king</p>
-              <p class="iconfont">&#xe606</p>
-              <p>2021-1-29</p>
-              <p class="iconfont icon">&#xe667</p>
-              <p>10</p>
-              <p class="iconfont icon">&#xe64d</p>
-              <p>0</p>
-            </div>
-            <!--            底部种类-->
-            <div class="message">
-              <a href="#"><div class="type">生活</div></a>
-            </div>
-          </div>
-        </div>
-        <!--        右边-->
-        <div class="right">
-          <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3593883707,2674855000&fm=26&gp=0.jpg" alt="">
-        </div>
-      </div>
-
-
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Main"
+  name: "Main",
+  props:["blogs"],
+  methods:{
+    toBlog(id){
+
+    }
+  }
 }
 </script>
 
@@ -72,10 +48,10 @@ export default {
 
 .content{
   width: 70%;
-  height: 1000px;
   margin: 0 auto;
 }
 .content .item{
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
