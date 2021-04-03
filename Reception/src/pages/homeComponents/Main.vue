@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="content">
-      <div class="item" v-for="(item,i) in blogs" @click="toBlog(item.id)">
+      <div class="item" v-for="(item,i) in blogs" @click="toBlog(item)">
         <!--      左边-->
         <div class="left">
           <div class="article-title">{{item.title}}</div>
-          <div class="description">{{item.title}}...</div>
+<!--          简介，暂时没有-->
+<!--          <div class="description">{{item.title}}...</div>-->
           <div>
             <div class="message">
               <img class="avatar" :src="item.picture_src" alt="">
@@ -14,8 +15,9 @@
               <p>{{item.update_time}}</p>
               <p class="iconfont icon">&#xe667</p>
               <p>{{item.view_numbers}}</p>
-              <p class="iconfont icon">&#xe64d</p>
-              <p>0</p>
+<!--              评论数，暂时没有此功能-->
+<!--              <p class="iconfont icon">&#xe64d</p>-->
+<!--              <p>0</p>-->
             </div>
 <!--            底部种类-->
             <div class="message">
@@ -37,8 +39,13 @@ export default {
   name: "Main",
   props:["blogs"],
   methods:{
-    toBlog(id){
-
+    toBlog(item){
+      this.$router.push({
+        path: '/article',
+        query: {
+          blog:item
+        }
+      })
     }
   }
 }

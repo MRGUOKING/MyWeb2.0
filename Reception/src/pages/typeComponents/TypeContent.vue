@@ -2,7 +2,7 @@
   <div>
     <div class="content">
 
-      <div class="item" v-for="(item,i) in listBlogs">
+      <div class="item" v-for="(item,i) in listBlogs"  @click="toBlog(item)">
         <!--      左边-->
         <div class="left">
           <div class="title">{{item.title}}</div>
@@ -38,6 +38,14 @@ export default {
   name: "Main",
   props:['listBlogs'],
   methods:{
+    toBlog(item){
+      this.$router.push({
+        path: '/article',
+        query: {
+          blog:item
+        }
+      })
+    }
   }
 }
 </script>

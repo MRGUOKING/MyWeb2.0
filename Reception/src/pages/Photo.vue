@@ -1,9 +1,9 @@
 <template>
   <div>
 <!--    照片的顶部-->
-    <PhotoTop/>
+    <PhotoTop @changeType="changeType"></PhotoTop>
 <!--    照片主要内容-->
-    <PhotoContent/>
+    <PhotoContent v-bind:photos="photos"></PhotoContent>
   </div>
 </template>
 
@@ -15,6 +15,19 @@ export default {
   components:{
     PhotoTop,
     PhotoContent
+  },
+  methods:{
+    changeType(type){
+      this.$axios.get("http://8.129.131.7:8085/photo/getPhotoByType/"+type).then((response)=>{
+        this.photos = response.data;
+      })
+    }
+
+  },
+  data(){
+    return{
+      photos:[]
+    }
   }
 }
 </script>

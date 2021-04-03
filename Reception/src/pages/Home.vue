@@ -77,7 +77,7 @@ export default {
   },
   methods:{
     getPageNum(){
-      this.$axios.get("http://localhost:8083/blog//blogPageMessage").then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/blog//blogPageMessage").then((response)=>{
         console.log("请求页面成功")
         console.log(response);
         this.maxPage = response.data.maxPageNum;
@@ -103,9 +103,10 @@ export default {
       }
     },
     getBlogByPage(page){
-      this.$axios.get("http://localhost:8083/blog/blogByPage/"+page).then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/blog/blogByPage/"+page).then((response)=>{
         console.log("请求成功")
         this.blogs = response.data;
+        console.log(this.blogs[0].description);
       })
     },
   }

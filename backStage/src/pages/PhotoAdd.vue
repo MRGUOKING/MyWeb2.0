@@ -143,7 +143,7 @@ export default {
         is_private: this.isPrivate,
         address:this.address
       }
-      this.$axios.post("http://localhost:8083/photo//updatePhoto",photo_update).then((response)=>{
+      this.$axios.post("http://8.129.131.7:8085/photo//updatePhoto",photo_update).then((response)=>{
         alert("修改成功!");
       })
     },
@@ -173,7 +173,7 @@ export default {
     },
     getListType(){
       this.$axios({
-        url:"http://localhost:8083/type/listPhotoType",
+        url:"http://8.129.131.7:8085/type/listPhotoType",
         method:'get'
       }).then((response)=>{
         this.typeContent = response.data;
@@ -190,6 +190,7 @@ export default {
         return ;
       }
       let length = file.length;
+      let photos=[];
       for(let i=0;i<length;i++){
         let photo = {
           name:this.imgs[i].name,
@@ -198,12 +199,16 @@ export default {
           is_private: this.isPrivate,
           address:this.address
         }
-        this.addFile(file[i],photo);
+        //把照片添加到Photos数组
+        photos.push(photo);
       }
+      // this.addFile(file[i],photo);
+      // console.log("photos")
+      // console.log(photos)
+      this.addFile(file,photos);
       //删除上传的本地数组文件
       file.splice(0,length);
       this.imgs.splice(0,this.imgs.length);
-      alert("上传成功")
     },
 
 
@@ -227,12 +232,13 @@ export default {
         this.imgsBack.push(file[i]);
         let reader = new FileReader();
         reader.onload = function (e){
+          console.log("开始执行onload函数")
           let src_content = e.target.result;
           let name_content = file[i].name.substring(0,file[i].name.lastIndexOf("."));
-          that.imgs.push({src:src_content,name:name_content});
+          // that.imgs.push({src:src_content,name:name_content});
+          that.imgs.splice(i,0,{src:src_content,name:name_content});
         }
         reader.readAsDataURL(file[i]);
-        //把图片添加到服务器上
       }
     },
     delImg(i){
@@ -240,26 +246,32 @@ export default {
       this.imgsBack.splice(i,1);
     },
     //添加图片到服务器
-    addFile(file,photo){
+    addFile(files,photos){
       let formData = new FormData();
-      formData.append("image",file);
+      for (let i=0;i<files.length;i++){
+        formData.append("files",files[i]);
+      }
       this.$axios({
-        url: "http://localhost:8083/img/addImg",
+        url: "http://8.129.131.7:8085/img/addImg",
         method: 'post',
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then((response)=>{
-        let url = response.data;
-        photo.url = url;
+        // console.log("多张照片上传成功")
+        // console.log(response)
+        // let form = new FormData();
+        for(let i =0;i<photos.length;i++){
+          photos[i].url = response.data[i];
+        }
         this.$axios({
-          url:"http://localhost:8083/photo/addPhoto",
+          url:"http://8.129.131.7:8085/photo/addPhoto",
           method: 'post',
-          data:photo,
+          data:photos,
           headers: {'Content-Type':'application/json'}
         }).then((response)=>{
+          // console.log("addPhotos成功!")
+          alert("上传成功!")
         })
-        return url;
-        // this.$refs.md.$img2Url(pos,url);
       })
     }
   }

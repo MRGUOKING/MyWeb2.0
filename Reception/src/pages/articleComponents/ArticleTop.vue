@@ -4,15 +4,16 @@
     <div class="shelter"></div>
 <!--文章基本信息-->
     <div class="article-message">
-      <div class="title">文章标题</div>
+      <div class="title" v-text="blog.title">文章标题</div>
 <!--      时间 日期-->
       <div class="base-message">
         <p class="iconfont">&#xe606</p>
-        <p>2021-1-29</p>
+        <p v-text="blog.update_time" class="date-time">2021-1-29</p>
         <p class="iconfont icon">&#xe667</p>
-        <p>10</p>
-        <p class="iconfont icon">&#xe64d</p>
-        <p>0</p>
+        <p v-text="blog.view_numbers">10</p>
+<!--        评论数，暂时没有此功能-->
+<!--        <p class="iconfont icon">&#xe64d</p>-->
+<!--        <p>0</p>-->
       </div>
     </div>
   </div>
@@ -21,7 +22,17 @@
 
 <script>
 export default {
-  name: "ArticleTop"
+  name: "ArticleTop",
+  props:['blog'],
+  created() {
+    this.getParams();
+  },
+  methods:{
+    getParams(){
+      let routerBlog = this.$route.query.blog;
+      this.blog = routerBlog;
+    }
+  }
 }
 </script>
 
@@ -68,8 +79,11 @@ export default {
   margin-right: 2px;
 }
 .base-message :nth-child(2){
-  width: 130px;
-  margin: 0px 10px 0px 0px;
+  width: 250px;
+  margin: 0px 10px 0px 5px;
+  font-size: 20px;
+  /*background-color: pink;*/
+  padding-top: 5px;
 }
 
 .base-message :nth-child(even){

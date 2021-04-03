@@ -19,19 +19,41 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f57ac73-f9bf-4588-9217-951d8c2723bd" name="Default Changelist" comment="后天除了搜索功能全部完善">
+    <list default="true" id="4f57ac73-f9bf-4588-9217-951d8c2723bd" name="Default Changelist" comment="与后端结合">
+      <change afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/markdown文章样式/css/github-markdown.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/markdown文章样式/css/materialdesignicons.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/markdown文章样式/fonts/materialdesignicons.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/markdown文章样式/fonts/materialdesignicons.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/markdown文章样式/fonts/materialdesignicons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/markdown文章样式/fonts/materialdesignicons.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/markdown文章样式/fonts/materialdesignicons.woff2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/build/webpack.prod.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/build/webpack.prod.conf.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reception/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reception/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Reception/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/src/pages/Article.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/Article.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reception/src/pages/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/src/pages/Photo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/Photo.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/src/pages/PhotoComponents/PhotoContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/PhotoComponents/PhotoContent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/src/pages/PhotoComponents/PhotoTop.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/PhotoComponents/PhotoTop.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/src/pages/Timeline.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/Timeline.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reception/src/pages/Type.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/Type.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/src/pages/articleComponents/ArticleContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/ArticleContent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/src/pages/articleComponents/ArticleTop.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/articleComponents/ArticleTop.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reception/src/pages/homeComponents/HomeContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/homeComponents/HomeContent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Reception/src/pages/homeComponents/HomeTop.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/homeComponents/HomeTop.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reception/src/pages/homeComponents/Main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/homeComponents/Main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/src/pages/timelineComponents/TimelineTop.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/timelineComponents/TimelineTop.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reception/src/pages/typeComponents/TypeContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/typeComponents/TypeContent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reception/src/pages/typeComponents/TypeTop.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/src/pages/typeComponents/TypeTop.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reception/static/css/reset.css" beforeDir="false" afterPath="$PROJECT_DIR$/Reception/static/css/reset.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/build/webpack.prod.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/build/webpack.prod.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/ArticlePublish.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/ArticlePublish.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/PhotoAdd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/PhotoAdd.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/PhotoManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/PhotoManage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/TypeInput.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/TypeInput.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backStage/src/pages/TypeManage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/TypeManage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/articleComponent/ArticleList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/articleComponent/ArticleList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backStage/src/pages/articleComponent/ArticleTop.vue" beforeDir="false" afterPath="$PROJECT_DIR$/backStage/src/pages/articleComponent/ArticleTop.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +65,7 @@
       <list>
         <option value="HTML File" />
         <option value="Vue Single File Component" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -60,7 +83,8 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/backStage/static/fonts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Reception/src/pages/articleComponents" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -73,14 +97,14 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\MusicTest\Music\src\pages\homeComponents" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MusicTest\Reception\src\pages\articleComponents" />
       <recent name="D:\MusicTest\backStage\static\fonts" />
       <recent name="D:\MusicTest\backStage\src\pages\images" />
       <recent name="D:\MusicTest\backStage\static" />
       <recent name="D:\MusicTest\backStage\static\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\MusicTest\Music\src\pages\homeComponents" />
     </key>
   </component>
@@ -127,7 +151,23 @@
       <workItem from="1615443424342" duration="10357000" />
       <workItem from="1615474193713" duration="1936000" />
       <workItem from="1615531415418" duration="12821000" />
-      <workItem from="1615613092875" duration="1930000" />
+      <workItem from="1615613092875" duration="15644000" />
+      <workItem from="1615725585731" duration="15406000" />
+      <workItem from="1615776459220" duration="7414000" />
+      <workItem from="1615790188018" duration="7919000" />
+      <workItem from="1615891224003" duration="16542000" />
+      <workItem from="1615980640335" duration="276000" />
+      <workItem from="1615990958610" duration="365000" />
+      <workItem from="1615996711223" duration="981000" />
+      <workItem from="1616379081663" duration="3530000" />
+      <workItem from="1616421781414" duration="40000" />
+      <workItem from="1616424071061" duration="8038000" />
+      <workItem from="1616472583792" duration="6293000" />
+      <workItem from="1616577026432" duration="1497000" />
+      <workItem from="1616684675635" duration="99000" />
+      <workItem from="1616828302102" duration="7000" />
+      <workItem from="1616955414679" duration="297000" />
+      <workItem from="1617372996705" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary="增加后台分类的搜索和导航">
       <created>1612449205111</created>
@@ -157,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615539630204</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="与后端结合">
+      <created>1615615163519</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1615615163519</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,7 +227,8 @@
     <MESSAGE value="相册管理完成" />
     <MESSAGE value="发布文章前后端联调成功" />
     <MESSAGE value="后天除了搜索功能全部完善" />
-    <option name="LAST_COMMIT_MESSAGE" value="后天除了搜索功能全部完善" />
+    <MESSAGE value="与后端结合" />
+    <option name="LAST_COMMIT_MESSAGE" value="与后端结合" />
   </component>
   <component name="WindowStateProjectService">
     <state x="594" y="128" key="#com.intellij.ide.ui.customization.CustomizableActionsPanel.FindAvailableActionsDialog" timestamp="1612361528516">
@@ -203,21 +251,32 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1612362292434" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1615539634862">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1615615170041">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1615539634862" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1615615170041" />
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1612254636777">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1612254636777" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1615378810128">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1615653168852">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1615378810128" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1615653168852" />
     <state x="552" y="96" width="441" height="632" key="svn.repositoryBrowser" timestamp="1612362658189">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="552" y="96" width="441" height="632" key="svn.repositoryBrowser/0.0.1536.824@0.0.1536.824" timestamp="1612362658189" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Reception/src/components/Header.vue</url>
+          <line>73</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

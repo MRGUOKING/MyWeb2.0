@@ -175,7 +175,7 @@ name: "ArticlePublish",
     },
     getTypeList(){
         this.$axios({
-          url:"http://localhost:8083/type/listType",
+          url:"http://8.129.131.7:8085/type/listType",
           method:'get'
         }).then((response)=>{
           this.types = response.data;
@@ -197,7 +197,8 @@ name: "ArticlePublish",
       let formData = new FormData();
       formData.append("image",$file);
       this.$axios({
-        url: "http://localhost:8083/img/addImg",
+        // url: "http://8.129.131.7:8085/img/addPirstPicture",
+        url: "http://8.129.131.7:8085/img/addPirstPicture",
         method: 'post',
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -215,7 +216,7 @@ name: "ArticlePublish",
       let formData = new FormData();
       formData.append("image",file);
       this.$axios({
-        url: "http://localhost:8083/img/addImg",
+        url: "http://8.129.131.7:8085/img/addPirstPicture",
         method: 'post',
         data: formData,
         headers: {'Content-Type':'multipart/form-data'},
@@ -250,7 +251,7 @@ name: "ArticlePublish",
       if (this.checkTrue()){
         //that指向vue实例
         let that =this;
-        this.$axios.post("http://localhost:8083/blog/addBlog",{
+        this.$axios.post("http://8.129.131.7:8085/blog/addBlog",{
           description:this.description,
           type_name: this.typeName,
           title: this.title,
@@ -273,7 +274,7 @@ name: "ArticlePublish",
     if (this.checkTrue()){
       //that指向vue实例
       let that =this;
-      this.$axios.post("http://localhost:8083/blog/updateBlog/"+blog_id,{
+      this.$axios.post("http://8.129.131.7:8085/blog/updateBlog/"+blog_id,{
         description:this.description,
         type_name: this.typeName,
         title: this.title,

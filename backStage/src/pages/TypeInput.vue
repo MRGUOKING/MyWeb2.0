@@ -48,7 +48,7 @@ name: "TypeInput",
         alert("请输入分类名称!")
       if (!this.is_update){
         http://localhost:8083/photo/photoNumMessage
-        this.$axios.post("http://localhost:8083/type/addType",{
+        this.$axios.post("http://8.129.131.7:8085/type/addType",{
           name:this.name,
           code:this.code
         }).then((response)=>{
@@ -60,7 +60,7 @@ name: "TypeInput",
       if (this.name == "")
         alert("请输入分类名称!")
       if (this.is_update){
-          this.$axios.post("http://localhost:8083/type/updateType",{
+          this.$axios.post("http://8.129.131.7:8085/type/updateType",{
             name:this.name,
             code:this.code,
             id:this.type_id

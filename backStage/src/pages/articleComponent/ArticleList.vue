@@ -70,7 +70,7 @@ name: "ArticleConten",
     deleteArticle(id){
       let sure = confirm("确定要删除这篇文章吗？")
       if (sure){
-        this.$axios.get("http://localhost:8083/blog/deleteABlog/"+id,{}).then((response)=>{
+        this.$axios.get("http://8.129.131.7:8085/blog/deleteABlog/"+id,{}).then((response)=>{
           if (response.data.message == 1){
             alert("删除成功!");
             this.getPageNum();
@@ -80,7 +80,7 @@ name: "ArticleConten",
       }
     },
     getBlogByPage(page){
-      this.$axios.get("http://localhost:8083/blog/blogByPage/"+page,{}).then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/blog/blogByPage/"+page,{}).then((response)=>{
         this.blogs = response.data;
       })
     },
@@ -103,7 +103,7 @@ name: "ArticleConten",
       }
     },
     getPageNum(){
-      this.$axios.get("http://localhost:8083/blog//blogPageMessage",{}).then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/blog//blogPageMessage",{}).then((response)=>{
         this.maxPage = response.data.maxPageNum;
         this.totalNumbers = response.data.totalNumber;
       })

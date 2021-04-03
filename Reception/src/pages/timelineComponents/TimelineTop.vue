@@ -5,12 +5,10 @@
       <p>时间是一条无法逆流的河</p>
       <!--    分类标签-->
       <div class="head">
-        <router-link to="/photoType">
-          <div style="display: flex">
-            <div class="item-type">2021</div>
-            <div class="type-numbers">5</div>
+          <div  v-for="(item,i) in years" class="type-container" @click="changeYear(i,item.year)">
+            <div :class="currentIndex == i ? 'item-type active' : 'item-type' ">{{item.year}}</div>
+            <div :class="currentIndex == i ? 'type-numbers active' : 'type-numbers'">{{item.num}}</div>
           </div>
-        </router-link>
       </div>
     </div>
   </div>
@@ -19,11 +17,44 @@
 
 <script>
 export default {
-  name: "PhotoThop"
+  name: "PhotoThop",
+  data(){
+    return{
+      years:[],
+      //当前的年份索引
+      currentIndex:0
+    }
+  },
+  created() {
+    this.getAllYears();
+  },
+  methods:{
+    getAllYears(){
+      this.$axios.get("http://8.129.131.7:8085/blog/getAllYears").then((response)=>{
+        this.years = response.data;
+        this.$emit("changYear",this.years[0].year)
+      })
+    },
+    changeYear(i,year){
+      this.currentIndex = i;
+      this.$emit("changYear",year);
+    }
+  }
 }
 </script>
 
 <style scoped>
+.type-container{
+  display: flex;
+  cursor: pointer;
+}
+
+.type-container .active{
+  border-color: #00b5ad;
+  background-color: #eeeeee;
+  /*border-right: none;*/
+}
+
 .top{
   width: 100%;
   height: 300px;

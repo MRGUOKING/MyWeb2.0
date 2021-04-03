@@ -62,7 +62,7 @@ export default {
     deleteType(typeId){
       //如果是文章
         if (confirm("确定要删除此分类嘛?")){
-          this.$axios.get("http://localhost:8083/type/deleteType/"+typeId).then((response)=>{
+          this.$axios.get("http://8.129.131.7:8085/type/deleteType/"+typeId).then((response)=>{
             console.log(response);
             alert("删除成功!");
             this.blog ? this.getListBlogType(): this.getListPhotoType();
@@ -70,12 +70,12 @@ export default {
         }
     },
     getListPhotoType(){
-      this.$axios.get("http://localhost:8083/type/listPhotoType").then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/type/listPhotoType").then((response)=>{
         this.photoTypes = response.data;
       })
     },
     getListBlogType(){
-      this.$axios.get("http://localhost:8083/type/listType").then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/type/listType").then((response)=>{
         this.blogTypes = response.data;
       })
     },

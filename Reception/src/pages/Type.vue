@@ -23,8 +23,7 @@ name: "Type",
   },
   methods:{
     changeType(typeName){
-      console.log("changeType函数开始执行,typeName是"+typeName)
-      this.$axios.get("http://localhost:8083/blog/getBlogByType/"+typeName).then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/blog/getBlogByType/"+typeName).then((response)=>{
         this.listBlogs = response.data;
       })
     },

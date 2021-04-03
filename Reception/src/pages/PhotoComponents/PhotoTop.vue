@@ -5,12 +5,12 @@
     <p>愿你走出半生，归来仍是少年</p>
 <!--    分类标签-->
     <div class="head">
-      <router-link to="/photoType">
-        <div style="display: flex">
-          <div class="item-type">生活</div>
-          <div class="type-numbers">5</div>
+      <div v-for="(item,i) in types" @click="changeType(i,item.type)">
+        <div class="type-container">
+          <div :class="currentIndex == i ? 'item-type active' : 'item-type' ">{{item.type}}</div>
+          <div :class="currentIndex == i ? 'type-numbers active' : 'type-numbers'">{{item.num}}</div>
         </div>
-      </router-link>
+      </div>
     </div>
   </div>
 </div>
@@ -19,11 +19,48 @@
 
 <script>
 export default {
-  name: "PhotoThop"
+  name: "PhotoThop",
+  created() {
+    this.initTypes();
+  },
+  data(){
+    return{
+      types:[],
+      currentIndex:0
+    }
+  },
+  methods:{
+    initTypes(){
+      this.$axios.get("http://8.129.131.7:8085/photo/getPhotoNum").then((response)=>{
+        this.types = response.data;
+        this.$emit("changeType",this.types[0].type);
+      })
+    },
+    getTypes(){
+      this.$axios.get("http://8.129.131.7:8085/photo/getPhotoNum").then((response)=>{
+        console.log("分类请求成功");
+        this.types = response.data;
+      })
+    },
+    changeType(i,typeName){
+      this.currentIndex = i;
+      this.$emit("changeType",typeName);
+    }
+  }
 }
 </script>
 
 <style scoped>
+
+.type-container{
+  display: flex;
+  cursor: pointer;
+}
+.type-container .active{
+  border-color: #00b5ad;
+  background-color: #eeeeee;
+  /*border-right: none;*/
+}
 .top{
   width: 100%;
   height: 300px;
@@ -73,5 +110,11 @@ export default {
   border-left: none;
   text-align: center;
   line-height: 30px;
+}
+
+.type-container .active{
+  border-color: #00b5ad;
+  background-color: #eeeeee;
+  /*border-right: none;*/
 }
 </style>

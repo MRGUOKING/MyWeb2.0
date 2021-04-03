@@ -64,7 +64,7 @@ name: "PhotoManage",
       let res = confirm("确定删除这张图片吗?")
       if (res){
         this.$axios({
-          url:"http://localhost:8083/photo/deleteAPhoto/"+photo_id,
+          url:"http://8.129.131.7:8085/photo/deleteAPhoto/"+photo_id,
           method:"get"
         }).then((response)=>{
           if (response.data.message == 1){
@@ -79,7 +79,7 @@ name: "PhotoManage",
   },
     listPhotos(currentPage,size){
       this.$axios({
-        url: "http://localhost:8083/photo/photoBypage/"+currentPage,
+        url: "http://8.129.131.7:8085/photo/photoBypage/"+currentPage,
         method:'get',
         params:{
           size:size
@@ -109,7 +109,7 @@ name: "PhotoManage",
     getPhotoMessage(){
       this.listPhotos(this.currentPage,10);
       this.$axios({
-        url: "http://localhost:8083/photo/photoNumMessage",
+        url: "http://8.129.131.7:8085/photo/photoNumMessage",
         method:'get'
       }).then((response)=>{
         this.maxPage = response.data.maxPageNum;

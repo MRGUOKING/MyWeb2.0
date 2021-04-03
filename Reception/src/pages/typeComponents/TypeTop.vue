@@ -5,13 +5,14 @@
       <p>一段一段的往事便组成了人生</p>
       <!--    分类标签-->
       <div class="head" >
-        <div to="/photoType"  v-for="(item,i) in blogTypes" @click="changeType(i,item.type_name)">
+        <div   v-for="(item,i) in blogTypes" @click="changeType(i,item.type_name)">
           <div class="type-container">
             <div :class="currentIndex == i ? 'item-type active' : 'item-type' ">{{item.type_name}}</div>
             <div :class="currentIndex == i ? 'type-numbers active' : 'type-numbers'">{{item.num}}</div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -36,13 +37,13 @@ export default {
       this.$emit("changeType",typeName);
     },
     getListBlogType(){
-      this.$axios.get("http://localhost:8083/blog/blogTypeNum").then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/blog/blogTypeNum").then((response)=>{
         this.blogTypes = response.data;
       })
     },
     //初始化，当初始化成功时向父组件传递第一个要显示的分类
     initListBlogType(){
-      this.$axios.get("http://localhost:8083/blog/blogTypeNum").then((response)=>{
+      this.$axios.get("http://8.129.131.7:8085/blog/blogTypeNum").then((response)=>{
         this.blogTypes = response.data;
         this.$emit("changeType",response.data[0].type_name);
       })

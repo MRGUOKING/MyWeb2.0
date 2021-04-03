@@ -1,83 +1,17 @@
 <template>
 <div>
-  <TimelineTop/>
+  <TimelineTop @changYear="changeYear"></TimelineTop>
 <!--  时间轴主要内容-->
     <div class="timeline">
       <ul>
-        <li>
+        <li v-for="(item,i) in blogs" @click="toBlog(item)">
 <!--          时间轴主要内容-->
           <div class="timeline-item">
-            <time>2020-01-03</time>
+            <time>{{item.update_time}}</time>
             <section class="timeline-item-main">
-              <a href="#" target="_blank">
-                文章标题
-              </a>
-            </section>
-          </div>
-        </li>
-        <li>
-          <!--          时间轴主要内容-->
-          <div class="timeline-item">
-            <time>2020-01-03</time>
-            <section class="timeline-item-main">
-              <a href="#" target="_blank">
-                文章标题
-              </a>
-            </section>
-          </div>
-        </li>
-        <li>
-          <!--          时间轴主要内容-->
-          <div class="timeline-item">
-            <time>2020-01-03</time>
-            <section class="timeline-item-main">
-              <a href="#" target="_blank">
-                文章标题
-              </a>
-            </section>
-          </div>
-        </li>
-        <li>
-          <!--          时间轴主要内容-->
-          <div class="timeline-item">
-            <time>2020-01-03</time>
-            <section class="timeline-item-main">
-              <a href="#" target="_blank">
-                文章标题
-              </a>
-            </section>
-          </div>
-        </li>
-        <li>
-          <!--          时间轴主要内容-->
-          <div class="timeline-item">
-            <time>2020-01-03</time>
-            <section class="timeline-item-main">
-              <a href="#" target="_blank">
-                文章标题
-              </a>
-            </section>
-          </div>
-        </li>
-        <li>
-          <!--          时间轴主要内容-->
-          <div class="timeline-item">
-            <time>2020-01-03</time>
-            <section class="timeline-item-main">
-              <a href="#" target="_blank">
-                文章标题
-              </a>
-            </section>
-          </div>
-        </li>
-        <li>
-          <!--          时间轴主要内容-->
-          <div class="timeline-item">
-            <time>2020-01-03</time>
-            <section class="timeline-item-main">
-              <a href="#" target="_blank">
-                文章标题
-              </a>
+              <div class="title" target="_blank">
+                {{ item.title }}
+              </div>
             </section>
           </div>
         </li>
@@ -92,37 +26,80 @@ import TimelineTop from "./timelineComponents/TimelineTop";
 export default {
 name: "timeline",
   components:{
-    TimelineTop
+    TimelineTop,
+  },
+  data(){
+    return{
+      blogs:{}
+    }
   },
   methods:{
-  },
+    toBlog(item){
+      this.$router.push({
+        path:'/article',
+        query:{
+          blog:item
+        }
+      })
+    },
+    changeYear(year){
+      this.$axios.get("http://8.129.131.7:8085/blog/getBlogsByYear/"+year).then((response)=>{
+        console.log("请求blogsByyear成功")
+        console.log(response);
+        this.blogs = response.data;
+      })},
+    callbackFunc(){
+          let items = document.querySelectorAll(".timeline li");
+          for (let i = 0; i < items.length; i++) {
+            if (this.isElementInViewport(items[i])) {
+              if(!items[i].classList.contains("in-view")){
+                items[i].classList.add("in-view");
+              }
+            } else if(items[i].classList.contains("in-view")) {
+              items[i].classList.remove("in-view");
+            }
+          }
+        },
+    isElementInViewport(el){
+          let rect = el.getBoundingClientRect();
+          return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+          );
+        }
+    },
+    // setView(){
+    //   let items = document.querySelectorAll(".timeline li");
+    //   function isElementInViewport(el) {
+    //     let rect = el.getBoundingClientRect();
+    //     return (
+    //       rect.top >= 0 &&
+    //       rect.left >= 0 &&
+    //       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    //       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    //     );
+    //   }
+    //   function callbackFunc() {
+    //     for (let i = 0; i < items.length; i++) {
+    //       if (isElementInViewport(items[i])) {
+    //         if(!items[i].classList.contains("in-view")){
+    //           items[i].classList.add("in-view");
+    //         }
+    //       } else if(items[i].classList.contains("in-view")) {
+    //         items[i].classList.remove("in-view");
+    //       }
+    //     }
+    //   }
+    //   callbackFunc();
+    //   window.addEventListener("load", callbackFunc);
+    //   window.addEventListener("scroll", callbackFunc);
+    // }
   mounted() {
     let items = document.querySelectorAll(".timeline li");
-
-    function isElementInViewport(el) {
-      let rect = el.getBoundingClientRect();
-      return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-      );
-    }
-
-    function callbackFunc() {
-      for (let i = 0; i < items.length; i++) {
-        if (isElementInViewport(items[i])) {
-          if(!items[i].classList.contains("in-view")){
-            items[i].classList.add("in-view");
-          }
-        } else if(items[i].classList.contains("in-view")) {
-          items[i].classList.remove("in-view");
-        }
-      }
-    }
-    callbackFunc();
-    window.addEventListener("load", callbackFunc);
-    window.addEventListener("scroll", callbackFunc);
+    window.addEventListener("load", this.callbackFunc);
+    window.addEventListener("scroll",this.callbackFunc);
   }
 }
 </script>
@@ -132,6 +109,7 @@ name: "timeline",
   margin-top: 50px;
 }
 .timeline ul li{
+  cursor: pointer;
   width: 6px;
   position: relative;
   margin: 0 auto;
@@ -176,7 +154,7 @@ name: "timeline",
 .timeline time{
   position: absolute;
   background: #f5af10;
-  width: 130px;
+  width: 190px;
   height: 25px;
   top: -10px;
   left: 5px;
@@ -189,7 +167,7 @@ name: "timeline",
   font-size: 15px;
 }
 
-section a{
+.timeline-item-main .title{
   color: #0f1316;
   font-weight: bold ;
   font-size: 20px;

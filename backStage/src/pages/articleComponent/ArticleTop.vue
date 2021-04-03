@@ -66,7 +66,7 @@ name: "ArticleTop",
   },
     getTypeList(){
       this.$axios({
-        url:"http://localhost:8083/type/listType",
+        url:"http://8.129.131.7:8085/type/listType",
         method:'get'
       }).then((response)=>{
         this.types = response.data;
